@@ -12,6 +12,7 @@ import com.twilio.Twilio;
 import com.twilio.base.ResourceSet;
 import com.twilio.rest.api.v2010.account.Message;
 
+
 /**
  * 
  * @author NaveenKhunteta
@@ -19,25 +20,25 @@ import com.twilio.rest.api.v2010.account.Message;
  */
 public class AmazonOTPHandle {
 
-	public static final String ACCOUNT_SID = "AC924b662e62bb7fa2ec5ea0d6a198d2c3";
-	public static final String AUTH_TOKEN = "b20da27b3aded58888cddc73b8facbde";
+	public static final String ACCOUNT_SID = "ACfe4fde6d3b48095c651cb2e65643c08a";
+	public static final String AUTH_TOKEN = "eeca0b7623797e4d94ed0b06b48c23d8";
 
 	public static void main(String[] args) {
 
-		System.setProperty("webdriver.chrome.driver", "/Users/NaveenKhunteta/Downloads/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\91821\\OneDrive\\Desktop\\My Workspace\\chromedriver_win32\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		driver.get("https://www.amazon.in");
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
 		driver.findElement(By.cssSelector("a#nav-link-accountList>span>span")).click();
-		driver.findElement(By.linkText("Start here.")).click();
+		driver.findElement(By.id("createAccountSubmit")).click();
 
-		driver.findElement(By.id("ap_customer_name")).sendKeys("NaveenTestOTP");
+		driver.findElement(By.id("ap_customer_name")).sendKeys("ViveklabsOtp");
 		driver.findElement(By.id("auth-country-picker-container")).click();
 
 		driver.findElement(By.xpath("//ul[@role='application']//li/a[contains(text(),'United States +1')]")).click();
-		driver.findElement(By.id("ap_phone_number")).sendKeys("3343734019");
-		driver.findElement(By.id("ap_password")).sendKeys("TestAutomation@123");
+		driver.findElement(By.id("ap_phone_number")).sendKeys("2057369308");
+		driver.findElement(By.id("ap_password")).sendKeys("Labsotp@123");
 		driver.findElement(By.id("continue")).click();
 
 		// get the OTP using Twilio APIs:
@@ -53,7 +54,7 @@ public class AmazonOTPHandle {
 
 	public static String getMessage() {
 		return getMessages().filter(m -> m.getDirection().compareTo(Message.Direction.INBOUND) == 0)
-				.filter(m -> m.getTo().equals("+13343734019")).map(Message::getBody).findFirst()
+				.filter(m -> m.getTo().equals("+12057369308")).map(Message::getBody).findFirst()
 				.orElseThrow(IllegalStateException::new);
 	}
 
